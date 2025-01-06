@@ -1,0 +1,26 @@
+<?php
+
+use App\Http\Controllers\Dashboard\AdminDashboardController;
+use App\Http\Controllers\Dashboard\AdminKunjunganController;
+use App\Http\Controllers\Dashboard\AdminPelayananController;
+use App\Http\Controllers\Dashboard\AdminPengaduanController;
+use App\Http\Controllers\Dashboard\AdminSkmController;
+use App\Http\Controllers\Dashboard\AdminUnitKerjaController;
+use App\Http\Controllers\User\FormKunjunganController;
+use App\Http\Controllers\User\UserHomeController;
+use App\Models\Kunjungan;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [UserHomeController::class, 'index']);
+
+Route::get('/dashboard', [AdminDashboardController::class, 'index']);
+Route::get('/kunjungan', [AdminKunjunganController::class, 'index']);
+Route::get('/pengaduan', [AdminPengaduanController::class, 'index']);
+Route::get('/skm', [AdminSkmController::class, 'index']);
+Route::resource('/unitkerja', AdminUnitKerjaController::class);
+Route::get('/pelayanan', [AdminPelayananController::class, 'index']);
+
+
+
+Route::get('/form_kunjungan', [FormKunjunganController::class, 'create'])->name('kunjungan.create');
+Route::post('/form_kunjungan/store', [FormKunjunganController::class, 'store'])->name('kunjungan.store');
