@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-primary">
+<nav class="navbar navbar-expand-lg bg-primary-subtle">
     <div class="container">
         <a class="navbar-brand" href="#">Navbar w/ text</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -18,7 +18,25 @@
                 </li>
             </ul>
             <span class="navbar-text">
-                Navbar text with an inline element
+                @if (Route::has('login'))
+                    <nav class="-mx-3 flex flex-1 justify-end">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="btn btn-primary">
+                                Dashboard
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-success">
+                                Log in
+                            </a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="btn btn-info">
+                                    Register
+                                </a>
+                            @endif
+                        @endauth
+                    </nav>
+                @endif
             </span>
         </div>
     </div>
