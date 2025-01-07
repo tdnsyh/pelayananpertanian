@@ -10,12 +10,13 @@
                     Belum ada data kunjungan.
                 </div>
             @else
-                <div class="mt-4">
+                <div class="mt-5">
                     <div class="table-responsive">
                         <table class="table">
                             <thead class="table-dark">
                                 <tr class="border-0">
-                                    <th class="rounded-start">Waktu</th>
+                                    <th class="rounded-start">No</th>
+                                    <th>Waktu</th>
                                     <th>Nama</th>
                                     <th>Unit Kerja</th>
                                     <th class="rounded-end">Aksi</th>
@@ -24,6 +25,7 @@
                             <tbody>
                                 @foreach ($kunjungan as $key => $k)
                                     <tr>
+                                        <td>{{ $key + 1 }}</td>
                                         <td>{{ $k->created_at->format('d-m-Y H:i') }}</td>
                                         <td>{{ $k->nama }}</td>
                                         <td>{{ $k->unitKerja->nama_unit_kerja }}</td>
@@ -47,9 +49,23 @@
                                                     </p>
                                                     <p>
                                                         <strong>Nomor Telepon:</strong>{{ $k->no_telf_aktif }} <br>
-                                                        <a href="https://wa.me/62{{ preg_replace('/^0/', '', preg_replace('/\D/', '', $k->no_telf_aktif)) }}"
-                                                            target="_blank" class="btn btn-success btn-sm mt-3">
-                                                            Hubungi via WhatsApp
+                                                        @php
+                                                            $cleanNumber = preg_replace('/\D/', '', $k->no_telf_aktif);
+                                                            if (substr($cleanNumber, 0, 1) === '0') {
+                                                                $cleanNumber = '+62' . substr($cleanNumber, 1);
+                                                            }
+
+                                                            $responseMessage = "Terima kasih atas Kunjungan anda :\n\n";
+                                                            $responseMessage .= "Nama: {$k->nama}\n";
+                                                            $responseMessage .= "Alamat: {$k->alamat}\n";
+                                                            $responseMessage .= "Tanggal Kunjungan : {$k->created_at}\n\n";
+                                                            $responseMessage .= "Jenis Keperluan : {$k->keperluan}\n";
+                                                            $responseMessage = urlencode($responseMessage);
+                                                        @endphp
+
+                                                        <a href="https://wa.me/{{ $cleanNumber }}?text={{ $responseMessage }}"
+                                                            class="btn btn-success mt-3" target="_blank">
+                                                            <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
                                                         </a>
                                                     </p>
                                                 </div>
