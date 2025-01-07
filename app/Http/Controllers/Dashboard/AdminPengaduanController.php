@@ -10,9 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminPengaduanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pengaduans = Pengaduan::with('tindakanPengaduans')->get();
+        $query = Pengaduan::with('tindakanPengaduans');
+
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+        }
+
+        if ($request->filled('status')) {
+            $query->whereHas('tindakanPengaduans', function ($q) use ($request) {
+                $q->where('status', $request->status);
+            });
+        }
+
+        $pengaduans = $query->get();
+
         return view('admin.pengaduan.index', compact('pengaduans'));
     }
 
