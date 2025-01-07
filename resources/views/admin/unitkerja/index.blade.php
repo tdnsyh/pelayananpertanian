@@ -5,7 +5,7 @@
             <p class="mb-0">Tampilan keseluruhan yang memudahkan pengelolaan data stokis, penjualan, dan wilayah secara
                 efisien.
             </p>
-            <a href="{{ route('unitkerja.create') }}" class="btn btn-primary mb-3 mt-3">Tambah Unit Kerja</a>
+            <a href="{{ route('unitkerja.create') }}" class="btn btn-primary mb-3 mt-4">Tambah Unit Kerja</a>
             <x-alert></x-alert>
             <div class="table-responsive">
                 <table class="table">

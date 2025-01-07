@@ -5,7 +5,7 @@
             <p class="mb-0">Tampilan keseluruhan yang memudahkan pengelolaan data stokis, penjualan, dan wilayah secara
                 efisien.
             </p>
-            <div class="mt-5">
+            <div class="mt-4">
                 <div class="row row-cols-1 row-cols-md-2">
                     <div class="col">
                         <div class="mb-3">

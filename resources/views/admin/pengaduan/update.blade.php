@@ -5,7 +5,7 @@
             <p class="mb-0">Tampilan keseluruhan yang memudahkan pengelolaan data stokis, penjualan, dan wilayah secara
                 efisien.
             </p>
-            <div class="mt-5">
+            <div class="mt-4">
                 <x-alert></x-alert>
                 <form action="{{ route('pengaduan.update', $pengaduan->id) }}" method="POST">
                     @csrf

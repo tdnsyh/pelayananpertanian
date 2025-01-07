@@ -5,7 +5,7 @@
             <p class="mb-0">Tampilan keseluruhan yang memudahkan pengelolaan data stokis, penjualan, dan wilayah secara
                 efisien.
             </p>
-            <div class="mt-5">
+            <div class="mt-4">
                 <div class="row">
                     <div class="col-md-12">
                         <form action="{{ route('kunjungan') }}" method="GET" class="row g-3">

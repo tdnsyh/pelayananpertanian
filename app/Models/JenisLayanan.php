@@ -16,8 +16,18 @@ class JenisLayanan extends Model
         'deskripsi',
     ];
 
-    public function jawaban()
+    public function responden()
     {
-        return $this->hasMany(Jawaban::class);
+        return $this->belongsTo(Responden::class);
+    }
+
+    public function pertanyaan()
+    {
+        return $this->belongsTo(Pertanyaan::class);
+    }
+
+    public function jenisLayanan()
+    {
+        return $this->belongsTo(JenisLayanan::class);
     }
 }
