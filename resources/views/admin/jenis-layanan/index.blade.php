@@ -9,7 +9,7 @@
             <x-alert></x-alert>
             @if ($layanan->isEmpty())
                 <div class="alert alert-warning" role="alert">
-                    Belum ada data layanan.
+                    Belum ada data jenis layanan.
                 </div>
             @else
                 <div class="table-responsive">

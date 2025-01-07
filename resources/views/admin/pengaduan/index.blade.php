@@ -6,6 +6,13 @@
                 efisien.
             </p>
             <div class="mt-4">
+                @if ($pengaduans->isEmpty())
+                    <div class="alert alert-warning mt-4" role="alert">
+                        Belum ada data pengaduan.
+                    </div>
+                @else
+            </div>
+            <div class="mt-4">
                 <div class="row">
                     <div class="col">
                         <form action="{{ route('pengaduan.index') }}" method="GET" class="row g-3">
@@ -26,9 +33,9 @@
                                     <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
                                         Pending</option>
                                     <option value="proses" {{ request('status') == 'proses' ? 'selected' : '' }}>In
-                                        Progress</option>
-                                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>
-                                        Completed</option>
+                                        Proses</option>
+                                    <option value="completed" {{ request('status') == 'selesai' ? 'selected' : '' }}>
+                                        Selesai</option>
                                 </select>
                             </div>
                             <div class="col-md-3 align-self-end">
@@ -39,56 +46,51 @@
                     </div>
                 </div>
             </div>
-            @if ($pengaduans->isEmpty())
-                <div class="alert alert-warning mt-4" role="alert">
-                    Belum ada data pengaduan.
-                </div>
-            @else
-                <div class="table-responsive mt-4">
-                    <table class="table">
-                        <thead class="table-dark">
-                            <tr class="border-0">
-                                <th class="rounded-start">No</th>
-                                <th>Tanggal</th>
-                                <th>Nama</th>
-                                <th>Deskripsi</th>
-                                <th>Status</th>
-                                <th class="rounded-end">Aksi</th>
+
+            <div class="table-responsive mt-4">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr class="border-0">
+                            <th class="rounded-start">No</th>
+                            <th>Tanggal</th>
+                            <th>Nama</th>
+                            <th>Deskripsi</th>
+                            <th>Status</th>
+                            <th class="rounded-end">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pengaduans as $index => $pengaduan)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $pengaduan->created_at->format('d-m-Y') }}</td>
+                                <td>{{ $pengaduan->nama }}</td>
+                                <td>{{ $pengaduan->deskripsi_pengaduan }}</td>
+                                <td>
+                                    @php
+                                        $status =
+                                            $pengaduan->tindakanPengaduans->last()->status ?? 'Belum Ditindaklanjuti';
+                                        $badgeClass = match ($status) {
+                                            'selesai' => 'badge bg-success',
+                                            'proses' => 'badge bg-warning',
+                                            'pending' => 'badge bg-danger',
+                                            default => 'badge bg-secondary',
+                                        };
+                                    @endphp
+                                    <span class="{{ $badgeClass }}">{{ $status }}</span>
+                                </td>
+                                <td>
+                                    <a href="{{ route('pengaduan.show', $pengaduan->id) }}"
+                                        class="btn btn-info btn-sm">Lihat</a>
+                                    <a href="{{ route('pengaduan.edit', $pengaduan->id) }}"
+                                        class="btn btn-warning btn-sm mt-2 mt-md-0">Tindak</a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pengaduans as $index => $pengaduan)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $pengaduan->created_at->format('d-m-Y') }}</td>
-                                    <td>{{ $pengaduan->nama }}</td>
-                                    <td>{{ $pengaduan->deskripsi_pengaduan }}</td>
-                                    <td>
-                                        @php
-                                            $status =
-                                                $pengaduan->tindakanPengaduans->last()->status ??
-                                                'Belum Ditindaklanjuti';
-                                            $badgeClass = match ($status) {
-                                                'selesai' => 'badge bg-success',
-                                                'proses' => 'badge bg-warning',
-                                                'pending' => 'badge bg-danger',
-                                                default => 'badge bg-secondary',
-                                            };
-                                        @endphp
-                                        <span class="{{ $badgeClass }}">{{ $status }}</span>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('pengaduan.show', $pengaduan->id) }}"
-                                            class="btn btn-info btn-sm">Lihat</a>
-                                        <a href="{{ route('pengaduan.edit', $pengaduan->id) }}"
-                                            class="btn btn-warning btn-sm mt-2 mt-md-0">Tindak</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+            </div>
         </div>
     </div>
 </x-layout>

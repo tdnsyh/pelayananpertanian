@@ -6,27 +6,32 @@
                 efisien.
             </p>
             <div class="mt-4">
-                <form method="GET" action="{{ route('kuisioner.index') }}">
-                    <div class="mb-3">
-                        <label for="jenis_layanan_id" class="form-label">Filter Jenis Layanan</label>
-                        <select name="jenis_layanan_id" id="jenis_layanan_id" class="form-select">
-                            <option value="">Semua Layanan</option>
-                            @foreach ($jenisLayanans as $jenisLayanan)
-                                <option value="{{ $jenisLayanan->id }}"
-                                    {{ $jenisLayanan->id == $jenisLayananId ? 'selected' : '' }}>
-                                    {{ $jenisLayanan->nama_layanan }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Filter</button>
-                </form>
-
                 @if ($noResponden)
                     <div class="alert alert-warning mt-4">
                         Belum ada responden yang mengisi kuisioner.
                     </div>
                 @else
+                    <form method="GET" action="{{ route('kuisioner.index') }}">
+                        <label for="jenis_layanan_id" class="form-label">Filter Jenis Layanan</label>
+                        <div class="row row-cols-1 row-cols-md-2">
+                            <div class="cols-md-8">
+                                <select name="jenis_layanan_id" id="jenis_layanan_id" class="form-select">
+                                    <option value="">Semua Layanan</option>
+                                    @foreach ($jenisLayanans as $jenisLayanan)
+                                        <option value="{{ $jenisLayanan->id }}"
+                                            {{ $jenisLayanan->id == $jenisLayananId ? 'selected' : '' }}>
+                                            {{ $jenisLayanan->nama_layanan }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="cols-md-2">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                                <a href="{{ route('kuisioner.index') }}" class="btn btn-info">Reset</a>
+                            </div>
+                        </div>
+                    </form>
+
                     <div class="table-responsive">
                         <table class="table mt-4 table-borderless">
                             <thead class="table-dark">

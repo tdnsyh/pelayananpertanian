@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('pelayanan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('unit_kerja_id')->constrained('unit_kerja')->onDelete('cascade');
-            $table->string('kategori');
-            $table->string('komponen');
-            $table->text('uraian');
+            $table->string('kategori_pelayanan');
             $table->timestamps();
         });
     }

@@ -31,4 +31,9 @@ class UnitKerja extends Model
     {
         return $this->hasMany(Pelayanan::class);
     }
+
+    public function pelayanans()
+    {
+        return $this->hasMany(Pelayanan::class);
+    }
 }

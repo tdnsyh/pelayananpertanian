@@ -30,7 +30,7 @@ Route::resource('pengaduan', AdminPengaduanController::class);
 Route::get('survei-kepuasan-masyarakat', [AdminSkmController::class, 'index'])->name('kuisioner.index');
 Route::get('survei-kepuasan-masyarakat/history', [AdminHistorySkmController::class, 'index'])->name('history.index');
 Route::resource('unitkerja', AdminUnitKerjaController::class);
-Route::get('pelayanan', [AdminPelayananController::class, 'index']);
+Route::resource('pelayanan', AdminPelayananController::class);
 Route::resource('pertanyaan', AdminPertanyaanController::class);
 Route::resource('jenis-layanan', AdminJenisLayananController::class);
 
