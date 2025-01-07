@@ -5,13 +5,33 @@
             <p class="mb-0">Tampilan keseluruhan yang memudahkan pengelolaan data stokis, penjualan, dan wilayah secara
                 efisien.
             </p>
-            @if ($kunjungan->isEmpty())
-                <div class="alert alert-warning mt-4" role="alert">
-                    Belum ada data kunjungan.
+            <div class="mt-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{{ route('kunjungan') }}" method="GET" class="row g-3">
+                            <div class="col-md-4">
+                                <label for="start_date" class="form-label">Tanggal Mulai</label>
+                                <input type="date" id="start_date" name="start_date" class="form-control"
+                                    value="{{ request('start_date') }}">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="end_date" class="form-label">Tanggal Akhir</label>
+                                <input type="date" id="end_date" name="end_date" class="form-control"
+                                    value="{{ request('end_date') }}">
+                            </div>
+                            <div class="col-md-4 align-self-end">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                                <a href="{{ route('kunjungan') }}" class="btn btn-secondary">Reset</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            @else
-                <div class="mt-5">
-                    <div class="table-responsive">
+                @if ($kunjungan->isEmpty())
+                    <div class="alert alert-warning mt-4" role="alert">
+                        Belum ada data kunjungan.
+                    </div>
+                @else
+                    <div class="table-responsive mt-4">
                         <table class="table">
                             <thead class="table-dark">
                                 <tr class="border-0">
@@ -76,8 +96,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
     </div>
 </x-layout>

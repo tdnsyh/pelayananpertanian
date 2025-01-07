@@ -8,9 +8,15 @@ use App\Models\Kunjungan;
 
 class AdminKunjunganController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kunjungan = Kunjungan::with('unitKerja')->get();
+        $query = Kunjungan::with('unitKerja');
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+        }
+
+        $kunjungan = $query->get();
+
         return view('admin.kunjungan.index', compact('kunjungan'));
     }
 }
