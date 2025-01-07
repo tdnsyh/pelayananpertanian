@@ -29,7 +29,19 @@
                                     <td>{{ $pengaduan->created_at->format('d-m-Y') }}</td>
                                     <td>{{ $pengaduan->nama }}</td>
                                     <td>{{ $pengaduan->deskripsi_pengaduan }}</td>
-                                    <td>{{ $pengaduan->tindakanPengaduans->last()->status ?? 'Belum Ditindaklanjuti' }}
+                                    <td>
+                                        @php
+                                            $status =
+                                                $pengaduan->tindakanPengaduans->last()->status ??
+                                                'Belum Ditindaklanjuti';
+                                            $badgeClass = match ($status) {
+                                                'selesai' => 'badge bg-success',
+                                                'proses' => 'badge bg-warning',
+                                                'pending' => 'badge bg-danger',
+                                                default => 'badge bg-secondary',
+                                            };
+                                        @endphp
+                                        <span class="{{ $badgeClass }}">{{ $status }}</span>
                                     </td>
                                     <td>
                                         <a href="{{ route('pengaduan.show', $pengaduan->id) }}"
