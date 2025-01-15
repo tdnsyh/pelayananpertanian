@@ -91,6 +91,60 @@
                 </table>
                 @endif
             </div>
+            <div class="mt-3">
+                <button id="downloadExcel" class="btn btn-success">
+                    <i class="fas fa-file-excel"></i> Unduh Excel
+                </button>
+            </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script>
+        document.getElementById('downloadExcel').addEventListener('click', function() {
+            const tableData = [
+                ["No", "Tanggal", "Nama", "Deskripsi Pengaduan", "Status Pengaduan", "Deskripsi Tindakan",
+                    "Waktu Tindakan", "Status Tindakan"
+                ]
+            ];
+
+            @foreach ($pengaduans as $index => $pengaduan)
+                const tindakan = @json($pengaduan->tindakanPengaduans->toArray());
+
+                if (tindakan.length === 0) {
+                    tableData.push([
+                        "{{ $index + 1 }}",
+                        "{{ $pengaduan->created_at->format('d-m-Y') }}",
+                        "{{ $pengaduan->nama }}",
+                        "{{ $pengaduan->deskripsi_pengaduan }}",
+                        "{{ $pengaduan->tindakanPengaduans->last()->status ?? 'Belum Ditindaklanjuti' }}",
+                        "-", "-", "-", "-"
+                    ]);
+                } else {
+                    tindakan.forEach((tindakanItem, tindakanIndex) => {
+                        tableData.push([
+                            tindakanIndex === 0 ? "{{ $index + 1 }}" :
+                            "", // Nomor hanya pada baris pertama
+                            tindakanIndex === 0 ? "{{ $pengaduan->created_at->format('d-m-Y') }}" :
+                            "",
+                            tindakanIndex === 0 ? "{{ $pengaduan->nama }}" : "",
+                            tindakanIndex === 0 ? "{{ $pengaduan->deskripsi_pengaduan }}" : "",
+                            tindakanIndex === 0 ?
+                            "{{ $pengaduan->tindakanPengaduans->last()->status ?? 'Belum Ditindaklanjuti' }}" :
+                            "",
+                            tindakanItem.deskripsi_tindakan ?? "-",
+                            tindakanItem.waktu_tindakan ?? "-",
+                            tindakanItem.status ?? "-",
+                        ]);
+                    });
+                }
+            @endforeach
+
+            const worksheet = XLSX.utils.aoa_to_sheet(tableData);
+
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Data Pengaduan");
+
+            XLSX.writeFile(workbook, 'data_pengaduan.xlsx');
+        });
+    </script>
 </x-layout>
