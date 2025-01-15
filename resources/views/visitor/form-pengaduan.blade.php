@@ -1,7 +1,8 @@
 <x-guard>
     <x-navbar></x-navbar>
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <x-alert></x-alert>
+        <h3 class="mb-3">Form Pengaduan</h3>
         <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">

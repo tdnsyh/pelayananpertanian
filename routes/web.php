@@ -34,9 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('jenis-layanan', AdminJenisLayananController::class);
 });
 
-
-
-Route::get('form_kunjungan', [FormKunjunganController::class, 'create'])->name('kunjungan.create');
-Route::post('form_kunjungan/store', [FormKunjunganController::class, 'store'])->name('kunjungan.store');
+Route::get('form-kunjungan', [FormKunjunganController::class, 'create'])->name('kunjungan.create');
+Route::post('form-kunjungan/store', [FormKunjunganController::class, 'store'])->name('kunjungan.store');
 Route::get('form-pengaduan', [FormPengaduanController::class, 'create'])->name('pengaduan.create');
 Route::post('form-pengaduan/kirim', [FormPengaduanController::class, 'store'])->name('pengaduan.store');

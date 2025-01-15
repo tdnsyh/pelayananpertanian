@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="table-responsive mt-4">
-                        <table class="table">
+                        <table id="kunjunganTable" class="table">
                             <thead class="table-dark">
                                 <tr class="border-0">
                                     <th class="rounded-start">No</th>
@@ -68,25 +68,7 @@
                                                         <strong>Keperluan:</strong> {{ $k->keperluan }}
                                                     </p>
                                                     <p>
-                                                        <strong>Nomor Telepon:</strong>{{ $k->no_telf_aktif }} <br>
-                                                        @php
-                                                            $cleanNumber = preg_replace('/\D/', '', $k->no_telf_aktif);
-                                                            if (substr($cleanNumber, 0, 1) === '0') {
-                                                                $cleanNumber = '+62' . substr($cleanNumber, 1);
-                                                            }
-
-                                                            $responseMessage = "Terima kasih atas Kunjungan anda :\n\n";
-                                                            $responseMessage .= "Nama: {$k->nama}\n";
-                                                            $responseMessage .= "Alamat: {$k->alamat}\n";
-                                                            $responseMessage .= "Tanggal Kunjungan : {$k->created_at}\n\n";
-                                                            $responseMessage .= "Jenis Keperluan : {$k->keperluan}\n";
-                                                            $responseMessage = urlencode($responseMessage);
-                                                        @endphp
-
-                                                        <a href="https://wa.me/{{ $cleanNumber }}?text={{ $responseMessage }}"
-                                                            class="btn btn-success mt-3" target="_blank">
-                                                            <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
-                                                        </a>
+                                                        <strong>Nomor Telepon:</strong>{{ $k->no_telf_aktif }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -96,8 +78,38 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="mt-3">
+                        <button id="downloadExcel" class="btn btn-success">
+                            <i class="fas fa-file-excel"></i> Unduh Excel
+                        </button>
+                    </div>
                 @endif
             </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+            <script>
+                document.getElementById('downloadExcel').addEventListener('click', function() {
+                    const tableData = [
+                        ["No", "Waktu", "Nama", "Unit Kerja", "Alamat", "Keperluan"], // Header
+                        @foreach ($kunjungan as $key => $k)
+                            [
+                                "{{ $key + 1 }}",
+                                "{{ $k->created_at->format('d-m-Y H:i') }}",
+                                "{{ $k->nama }}",
+                                "{{ $k->unitKerja->nama_unit_kerja }}",
+                                "{{ $k->alamat }}",
+                                "{{ $k->keperluan }}"
+                            ],
+                        @endforeach
+                    ];
+
+                    const worksheet = XLSX.utils.aoa_to_sheet(tableData);
+                    const workbook = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(workbook, worksheet, "Data Kunjungan");
+
+                    XLSX.writeFile(workbook, 'data_kunjungan.xlsx');
+                });
+            </script>
         </div>
     </div>
 </x-layout>
