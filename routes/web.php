@@ -30,8 +30,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('kunjungan', [AdminKunjunganController::class, 'index'])->name('kunjungan');
     Route::resource('pengaduan', AdminPengaduanController::class);
     Route::resource('unitkerja', AdminUnitKerjaController::class);
-    Route::resource('pelayanan', AdminPelayananController::class);
-    Route::resource('jenis-layanan', AdminJenisLayananController::class);
 });
 
 Route::get('form-kunjungan', [FormKunjunganController::class, 'create'])->name('kunjungan.create');

@@ -30,7 +30,11 @@
             </div>
             <div class="form-group mb-3">
                 <label for="keperluan">Keperluan</label>
-                <textarea class="form-control" id="keperluan" name="keperluan" required></textarea>
+                <select class="form-control" id="keperluan" name="keperluan" required>
+                    <option value="Biasa">Biasa</option>
+                    <option value="Pelayanan">Pelayanan</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary mt-3">Tambah Kunjungan</button>
         </form>

@@ -74,7 +74,7 @@
                             bidang kelautan dan perikanan serta tugas pembantuan.</p>
                         <div class="d-flex">
                             {{-- <a href="form-kunjungan" class="btn-get-started me-2">Buku Tamu</a> --}}
-                            <a href="form-survei" class="btn-get-started me-2">Survei Kepuasan Masyarakat</a>
+                            <a href="#" class="btn-get-started me-2">Survei Kepuasan Masyarakat</a>
                             <a href="form-pengaduan" class="btn-get-started">Pengaduan</a>
                         </div>
                     </div>
