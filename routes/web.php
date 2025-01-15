@@ -24,12 +24,16 @@ Route::get('register', [AuthController::class, 'showRegisterForm'])->name('regis
 Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-Route::get('kunjungan', [AdminKunjunganController::class, 'index'])->name('kunjungan');
-Route::resource('pengaduan', AdminPengaduanController::class);
-Route::resource('unitkerja', AdminUnitKerjaController::class);
-Route::resource('pelayanan', AdminPelayananController::class);
-Route::resource('jenis-layanan', AdminJenisLayananController::class);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('kunjungan', [AdminKunjunganController::class, 'index'])->name('kunjungan');
+    Route::resource('pengaduan', AdminPengaduanController::class);
+    Route::resource('unitkerja', AdminUnitKerjaController::class);
+    Route::resource('pelayanan', AdminPelayananController::class);
+    Route::resource('jenis-layanan', AdminJenisLayananController::class);
+});
+
 
 
 Route::get('form_kunjungan', [FormKunjunganController::class, 'create'])->name('kunjungan.create');
