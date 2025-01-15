@@ -26,14 +26,4 @@ class UnitKerja extends Model
     {
         return $this->hasMany(Pengaduan::class);
     }
-
-    public function pelayanan()
-    {
-        return $this->hasMany(Pelayanan::class);
-    }
-
-    public function pelayanans()
-    {
-        return $this->hasMany(Pelayanan::class);
-    }
 }

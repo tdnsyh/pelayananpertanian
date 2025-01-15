@@ -60,15 +60,6 @@
                         <span class="hide-menu">Unit Kerja</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if (request()->is('pelayanan*')) active @endif" href="/pelayanan"
-                        aria-expanded="false">
-                        <span>
-                            <i class="ti ti-location"></i>
-                        </span>
-                        <span class="hide-menu">Pelayanan</span>
-                    </a>
-                </li>
             </ul>
         </nav>
     </div>
