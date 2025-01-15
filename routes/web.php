@@ -27,11 +27,8 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 Route::get('kunjungan', [AdminKunjunganController::class, 'index'])->name('kunjungan');
 Route::resource('pengaduan', AdminPengaduanController::class);
-Route::get('survei-kepuasan-masyarakat', [AdminSkmController::class, 'index'])->name('kuisioner.index');
-Route::get('survei-kepuasan-masyarakat/history', [AdminHistorySkmController::class, 'index'])->name('history.index');
 Route::resource('unitkerja', AdminUnitKerjaController::class);
 Route::resource('pelayanan', AdminPelayananController::class);
-Route::resource('pertanyaan', AdminPertanyaanController::class);
 Route::resource('jenis-layanan', AdminJenisLayananController::class);
 
 
@@ -39,5 +36,3 @@ Route::get('form_kunjungan', [FormKunjunganController::class, 'create'])->name('
 Route::post('form_kunjungan/store', [FormKunjunganController::class, 'store'])->name('kunjungan.store');
 Route::get('form-pengaduan', [FormPengaduanController::class, 'create'])->name('pengaduan.create');
 Route::post('form-pengaduan/kirim', [FormPengaduanController::class, 'store'])->name('pengaduan.store');
-Route::get('form-kuisioner', [FormKuisionerController::class, 'create'])->name('kuisioner.create');
-Route::post('form-kuisioner/kirim', [FormKuisionerController::class, 'store'])->name('kuisioner.store');

@@ -16,16 +16,6 @@ class JenisLayanan extends Model
         'deskripsi',
     ];
 
-    public function responden()
-    {
-        return $this->belongsTo(Responden::class);
-    }
-
-    public function pertanyaan()
-    {
-        return $this->belongsTo(Pertanyaan::class);
-    }
-
     public function jenisLayanan()
     {
         return $this->belongsTo(JenisLayanan::class);

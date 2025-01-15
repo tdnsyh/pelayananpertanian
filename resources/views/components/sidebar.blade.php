@@ -47,15 +47,6 @@
                         <span class="hide-menu">Pengaduan</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if (request()->is('survei-kepuasan-masyarakat*')) active @endif"
-                        href="/survei-kepuasan-masyarakat" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-book"></i>
-                        </span>
-                        <span class="hide-menu">SKM</span>
-                    </a>
-                </li>
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Master Data</span>
@@ -76,24 +67,6 @@
                             <i class="ti ti-location"></i>
                         </span>
                         <span class="hide-menu">Pelayanan</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if (request()->is('pertanyaan*')) active @endif" href="/pertanyaan"
-                        aria-expanded="false">
-                        <span>
-                            <i class="ti ti-location"></i>
-                        </span>
-                        <span class="hide-menu">Pertanyaan</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link @if (request()->is('jenis-layanan*')) active @endif" href="/jenis-layanan"
-                        aria-expanded="false">
-                        <span>
-                            <i class="ti ti-location"></i>
-                        </span>
-                        <span class="hide-menu">Jenis Layanan</span>
                     </a>
                 </li>
             </ul>
